@@ -1,0 +1,13 @@
+g = 9.8
+v = 0.0
+m = 68.1
+c = 12.5
+e = 2.7182
+t = 0.0
+
+print "Tiempo       Velocidad"
+    
+while t<=150:
+    v = (g*m/c)*(1-e**(-(c/m)*t))
+    print "%f     %f" % (t, v)
+    t=t+1
