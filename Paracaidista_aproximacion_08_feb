@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+g = 9.8
+m = 68.1
+c = 12.5
+v = 0.0
+v2 = 0.0
+t2 = 0
+t = 0
+ts = 2
+vs = 0.0
+e = 2.7182
+arreglo = []
+arreglo2 = []
+arreglo3 = []
+arreglo4 = []
+
+while t<150:
+    vs = v  + (g-(c/m)*v)*(ts-t)
+    arreglo.append(vs)
+    arreglo2.append(ts)
+    t = ts
+    ts = ts+2
+    v = vs
+
+while t2<150:
+    
+    v2 = (g*m/c)*(1-e**(-(c/m)*t2))
+    arreglo3.append(v2)
+    arreglo4.append(t2)
+    t2 = t2+1
+    
+plt.ylabel('Velocidad (m/s)')
+plt.xlabel('Tiempo (s)')
+plt.plot(arreglo2, arreglo,'ro')
+plt.plot(arreglo4, arreglo3)
+plt.axis([0, 80, 0, 100])
+plt.show()
