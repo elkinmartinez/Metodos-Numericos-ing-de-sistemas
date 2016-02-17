@@ -1,0 +1,57 @@
+import matplotlib.pyplot as plt
+g = 9.8
+m = 68.1
+c = 12.5
+v = 0.0
+v2 = 0.0
+t = 0
+ts = 2
+vs = 0.0
+e = 2.7182
+velocidadsig = []
+tiemposig = []
+velocidad = []
+tiempo = []
+Et = []
+et = []
+Ea = []
+taux = []
+Errortolerado = 0.005
+
+while t<150:
+    vs = v  + (g-(c/m)*v)*(ts-t)
+    velocidadsig.append(vs)
+    tiemposig.append(t)
+    t = ts
+    ts = ts+2
+    v = vs
+    
+t=0
+while t<150:
+    
+    v2 = (g*m/c)*(1-e**(-(c/m)*t))
+    velocidad.append(v2)
+    tiempo.append(t)
+    t = t + 2
+    
+t=0
+while t<74:
+    Et.append(abs(velocidad[t]-velocidadsig[t]))
+    et.append((Et[t]/velocidadsig[t])*100)
+    Ea.append(((velocidadsig[t+1]-velocidadsig[t])/(velocidadsig[t+1]))*100)
+    taux.append(t)
+    t=t+1
+print "tiempo     v analitica       v aproximada            Et                 et                  Ea  "
+
+t=0
+while Ea[t]>Errortolerado:
+    print " %s           %f          %f         %f            %f           %f" %(tiempo[t],velocidad[t],velocidadsig[t],Et[t],et[t],Ea[t]) 
+    t = t+1
+    
+plt.title("Error relativo porcentual y Error aproximado")    
+plt.plot (taux, et,label='Error relativo porcentual')
+plt.plot (taux, Ea,label='Error relativo porcentual aproximado')
+plt.axis([-50, 100, -50, 110])
+plt.legend()
+plt.show()
+plt.grid(True)
