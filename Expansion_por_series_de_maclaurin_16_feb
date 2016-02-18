@@ -1,0 +1,32 @@
+serie=0.0
+n = 1
+fac = 1
+i=1
+e=2.718281828
+x=0.5
+aux = 0.0
+arreglo = []
+arreglo.append(1)
+Et,Ea = 0.0,1.0
+valorv = e**x
+aprox = 0.0
+Errortolerado=0.05
+print "#término     e^x por cada termino        Et                        Ea                       e^x aprox "
+while n<150:
+    fac = fac*i
+    i = i + 1
+    serie = (x**n)/fac
+    aux = serie + aux 
+    arreglo.append(serie)
+    n = n + 1
+
+aprox = aux+1
+n, acum = 1,0
+while Ea>Errortolerado:
+    acumant=acum
+    acum = acum + arreglo[n-1]
+    acumsig=acum
+    Et = abs((valorv-acum)/acum)*100
+    Ea = (abs(acumsig-acumant)/acumsig)*100
+    print "%d            %f                   %f                     %f                %f" % (n, arreglo[n-1], Et, Ea, acum)
+    n = n + 1
