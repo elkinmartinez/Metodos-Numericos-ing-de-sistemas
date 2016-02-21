@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import math
+x = 5
+t = 0
+vv = 6.737947*(10**(-3))
+expo = []
+f = []
+g = []
+signo = []
+factorial = []
+Etf = []
+Etg = []
+Eaf = []
+Eag = []
+while t<20:
+    signo.append((-1)**t)
+    expo.append(x**t)
+    factorial.append(math.factorial(t))
+    t = t + 1
+    
+t = 0
+acum = 0
+while t<20:
+    acum = acum + signo[t]*expo[t]/factorial[t]
+    f.append(acum)
+    t = t + 1
+
+acum = 0
+t = 0
+while t<20:
+    acum = acum + expo[t]/factorial[t]
+    g.append(1/acum)
+    t = t + 1
+    
+t = 0
+while t<20:
+    Etf.append(abs((vv-f[t])/f[t])*100)
+    Etg.append(abs((vv-g[t])/g[t])*100)
+    t = t + 1
+    
+t = 0
+while t<19:
+    Eaf.append(abs((f[t+1]-f[t])/f[t+1])*100)
+    Eag.append(abs((g[t+1]-g[t])/g[t+1])*100)
+    t = t + 1
+    
+print ("Término    f(x)             g(x)               Et f                 Et g                 Ea f                Eag")
+
+t = 0
+while t<20:
+    print ("%d          %f         %f         %f               %f          %f      %f" % (t+1, f[t], g[t], Etf[t], Etg[t],Eaf[t], Eag[t]))
+    t = t + 1
