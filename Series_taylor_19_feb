@@ -1,0 +1,18 @@
+import math
+fx,h,x = [],1,0
+fx.append(-0.1*x**4-0.15*x**3-0.5*x**2-0.25*x+1.2)
+fx.append(-0.4*x**3-0.45*x**2-x-0.25)
+fx.append(-1.2*x**2-0.9*x-1)
+fx.append(-2.4*x-0.9)
+fx.append(-2.4)
+n,fac,aux = 0,0,0.0
+print "orden        f(Xi+1)"
+while n<5:
+    fac = math.factorial(n)
+    if (n==0):
+        f = fx[n]/fac
+    else:
+        f = (fx[n]/fac)*h**(n+1)
+    aux = aux + f
+    print "%s            %f"%(n,aux)
+    n = n+1
