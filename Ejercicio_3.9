@@ -1,0 +1,19 @@
+import math
+# Ea = Error relativo porcentual aproximado
+# Es = Error tolerado
+i,aux,x,acum=0,0,0.9424778,0.0
+Es,mostraracum,Ea = 0.5*10**-6,[],1.0
+while i<50:
+    fac = math.factorial(i)
+    cos = (x**i)/fac
+    signo = (-1)**aux
+    acum  = acum + signo*cos
+    mostraracum.append(acum)
+    i = i+2
+    aux = aux+1
+print "terminos           Resultado segun se agregan terminos        Ea"
+i=0
+while  Ea>Es:
+    Ea = (abs(mostraracum[i+1]-mostraracum[i])/mostraracum[i+1]*100)
+    print "%s                  %f                                   %f"%(i+1,mostraracum[i],Ea)
+    i=i+1
