@@ -1,0 +1,24 @@
+x=1.37
+# metodo para manejar solo tres digitos
+def digitos(cadena):
+    b = str(cadena)
+    numero = b[:3]
+    if '.' or '-'in b:
+        numero = b[:4]
+    if '-' and '.' in b:
+        numero = b[:5]
+    return float(numero)
+
+funcionaprox =  digitos(x**3)-digitos(7*x**2)+digitos(8*x)+0.35
+funcionana = x**3-7*x**2 + 8*x + 0.35
+Et = (abs(funcionana-funcionaprox)/funcionaprox)*100
+
+yana = ((x-7)*x + 8)*x + 0.35
+yaprox = digitos(digitos(digitos(digitos(x-7)*x)+8)*x) + 0.35
+Ety = (abs(yana-yaprox)/yaprox)*100
+
+#fac = factorizacion
+#ana = analitica
+print "sin fac ana || con fac ana || sin fac aprox || con fac aprox || Et sin fac || Et con fac "
+print ""
+print "%f       %f       %s            %s            %f      %f "%(funcionana,yana,funcionaprox,yaprox,Et,Ety)
