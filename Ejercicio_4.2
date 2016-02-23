@@ -1,0 +1,24 @@
+import math
+fx,h,x = [],math.pi/12,math.pi/4
+
+fx.append(math.cos(x))
+fx.append(-math.sin(x))
+fx.append(-math.cos(x))
+fx.append(math.sin(x))
+fx.append(math.cos(x))
+fx.append(-math.sin(x))
+fx.append(-math.cos(x))
+
+n,fac,aux = 0,0,0.0
+
+print "Orden n                     f^n(x)                      f(pi/3)                      Et"
+while n<7:
+    fac = math.factorial(n)
+    if (n==0):
+        f = fx[n]/fac
+    else:
+        f = (fx[n]/fac)*h**n
+    aux = aux + f
+    Et = ((0.5-aux)/0.5)*100
+    print "%s                       %s              %s              %s"%(n,fx[n],aux,Et)
+    n = n+1
