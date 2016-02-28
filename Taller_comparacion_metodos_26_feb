@@ -1,0 +1,53 @@
+import matplotlib.pyplot as plt
+import math
+
+g,m,t,v= 9.8,68.1,10,40
+c,f,coe2,coe1,valorexac,error1,error2=1,0.0,[],[],14.780204,[],[]
+Xl,Xu,Xr,fun1,fun2 = 12.0,16.0,0.0,1.0,1.0
+
+def evaluar(valor):
+    fun = (g*m/valor)*(1-math.e**((-1*valor/m)*t))-v
+    return fun
+n=0
+
+while (fun1*fun2)!=0:
+    Xr =  Xu-(evaluar(Xu)*(Xl-Xu)/(evaluar(Xl)-evaluar(Xu)))
+    Et = (abs(valorexac-Xr)/Xr)*100
+    error1.append(Et)
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    coe1.append(n)
+    n = n+1
+
+n=0
+Xl,Xu,Xr,fun1,fun2 = 12.0,16.0,0.0,1.0,1.0
+while (fun1*fun2)!=0:
+    Xr =  (Xl+Xu)/2
+    Et = (abs(valorexac-Xr)/Xr)*100
+    error2.append(Et)
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    coe2.append(n)
+    n = n+1
+n=0       
+print   "Et metodo biseccion                 Et metodo falsa posicion" 
+while n<16:
+    print "%s                         %s"%(error1[n],error2[n])
+    n = n+1
+
+plt.ylabel('Error relativo porcentual verdadero')
+plt.xlabel('iteraciones')
+plt.plot(coe1, error1,label="Et metodo falsa posicion")
+plt.plot(coe2, error2,label="Et metodo biseccion")
+plt.axis([-1, 20, -1, 6])
+plt.grid(True)
+plt.legend()
+plt.show()
