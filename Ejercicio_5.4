@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import math
+Xl,Xu,Xr,fun1,fun2 = -1.0,0.0,0.0,1.0,1.0
+
+def evaluar(valor):
+    fun = -12-21*valor+18*valor**2-2.75*valor**3
+    return fun
+
+n,x,funcion,itera,valorexac = 0,-100,[],[],-0.41468941162
+while n<2000:
+    funcion.append(-12-21*x+18*x**2-2.75*x**3)
+    itera.append(x)
+    x = x+0.1
+    n = n+1
+    
+Es,Ea = 0.05,1.0
+print " Xr                         Et                           Ea"
+while Ea>Es:
+    Xrant = Xr
+    Xr =  Xu-(evaluar(Xu)*(Xl-Xu)/(evaluar(Xl)-evaluar(Xu)))
+    Et = abs((valorexac-Xr)/Xr)*100
+    Ea = abs((Xr-Xrant)/Xr)*100
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    print "%f                   %f                     %f"%(Xr,Et,Ea)
+
+plt.ylabel('Y(x)')
+plt.xlabel('x')
+plt.plot(itera, funcion)
+plt.axis([-10, 10, -100, 100])
+plt.grid(True)
+plt.show()
