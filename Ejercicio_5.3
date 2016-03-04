@@ -1,0 +1,58 @@
+import matplotlib.pyplot as plt
+import math
+
+def evaluar(valor):
+    fun = -25+82*valor-90*valor**2+44*valor**3-8*valor**4+0.7*valor**5
+    return fun
+
+n,x,funcion,itera,valorexac = 0,-50,[],[],0.579409 
+while n<600:
+    funcion.append(-25+82*x-90*x**2+44*x**3-8*x**4+0.7*x**5)
+    itera.append(x)
+    x = x+0.1
+    n = n+1
+    
+Xl,Xu,Xr = 0.5,1.0,0.0
+
+print "metodo de biseccion          Xr                     Et                        Ea"
+Ea = 1.0
+Es = 0.1
+while Ea>Es:
+    Xrant = Xr
+    Xr =  (Xl+Xu)/2
+    Ea = (abs(Xr-Xrant)/Xr)*100
+    Et = (abs(valorexac-Xr)/valorexac)*100
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    n = n+1
+    print "                           %f                 %f                  %f"%(Xr,Et,Ea)
+
+print ""
+print "metodo de falsa posicion     Xr                     Et                        Ea"
+Xl,Xu,Xr = 0.5,1.0,0.0
+Ea2 = 1.0
+Es2 = 0.002
+while Ea2>Es2:
+    Xrant = Xr
+    Xr = Xu-(evaluar(Xu)*(Xl-Xu)/(evaluar(Xl)-evaluar(Xu)))
+    Ea2 = (abs(Xr-Xrant)/Xr)*100
+    Et2 = (abs(valorexac-Xr)/valorexac)*100
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    n = n+1
+    print "                           %f                 %f                  %f"%(Xr,Et2,Ea2)
+    
+plt.ylabel('Y(x)')
+plt.xlabel('x')
+plt.plot(itera, funcion)
+plt.axis([-10, 10, -100, 100])
+plt.grid(True)
+plt.show()
