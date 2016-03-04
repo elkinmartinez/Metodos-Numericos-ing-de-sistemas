@@ -1,0 +1,42 @@
+import matplotlib.pyplot as plt
+import math
+
+def evaluar(valor):
+    fun = -0.5*valor**2+2.5*valor+4.5
+    return fun
+
+n,x,funcion,itera = 0,-50,[],[]
+while n<500:
+    funcion.append(-0.5*x**2+2.5*x+4.5)
+    itera.append(x)
+    x = x+0.5
+    n = n+1
+    
+n,Xl,Xu,Xr,valorexac,raiz1,raiz2 = 0,5.0,10.0,0.0,6.405124838,0.0,0.0
+a,b,c = -0.5,2.5,4.5
+raiz1 = (-b+math.sqrt(b**2-4*a*c))/(2*a)
+raiz2 = (-b-math.sqrt(b**2-4*a*c))/(2*a)
+
+print "1era Raiz              2da Raiz"
+print "%f              %f"%(raiz1,raiz2)
+print "Xr                           Et                          Ea"
+while n<3:
+    Xrant = Xr
+    Xr =  (Xl+Xu)/2
+    Et = (abs(valorexac-Xr)/valorexac)*100
+    Ea = (abs(Xr-Xrant)/Xr)*100
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    n = n+1
+    print "%f                   %f                   %f "%(Xr,Et,Ea)
+    
+plt.ylabel('Y(x)')
+plt.xlabel('x')
+plt.plot(itera, funcion)
+plt.axis([-10, 15, -10, 15])
+plt.grid(True)
+plt.show()
