@@ -1,0 +1,25 @@
+import math
+g,c,v,t,Xu,Xl,fun1,fun2 = 9.8,15,35,9,50.0,60.0,1.0,1.0
+
+# v = ((m*g)/c) * (1 - e**(-(c/m)*t)) 
+# v = ((m*9.8)/15) * (1 - e**(-(15/m)*9))=35
+# f(m) = m * (1 - e(-135/m)) - 53.57 = 0
+
+
+def evaluar(valor):
+    fun =  valor * (1 - math.e**(-135/valor)) - 53.57
+    return fun
+
+Es,Ea,Xr = 0.001,1.0,0.0
+print "Masa"
+while Ea>Es:
+    Xrant = Xr
+    Xr =  Xu-(evaluar(Xu)*(Xl-Xu)/(evaluar(Xl)-evaluar(Xu)))
+    Ea = (abs(Xr-Xrant)/Xr)*100
+    fun1 = evaluar(Xl)
+    fun2 = evaluar(Xr)
+    if (fun1*fun2)<0:
+        Xu = Xr
+    if (fun1*fun2)>0:
+        Xl = Xr
+    print Xr
