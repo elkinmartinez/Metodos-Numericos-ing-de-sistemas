@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+fun1,fun2,fun3,fun4,x1,x,X1,X2,n = [],[],[],[],[],0.0,0.0,0.0,0
+
+while x<10:
+    fun1.append(-1.5*x+9)
+    fun2.append((2+x)/2)
+    fun3.append(2*x-2)
+    fun4.append(-2*x/3+6)
+    x1.append(x)
+    if (fun1[n]==fun2[n]):
+        print "La solucion en x es %s" % (fun1[n])
+    if (fun3[n]==fun4[n]):
+        print "La solucion en y es %s" % (fun3[n])
+    x = x + 1
+    n = n + 1  
+
+plt.ylabel('X2')
+plt.xlabel('X1')
+plt.plot(x1, fun1,label = '(-3/2)x+9')
+plt.plot(x1, fun2,label = '(2+x)/2')
+plt.axis([-5, 10, -5, 15])   
+plt.legend() 
+plt.grid(True)
+plt.show()
