@@ -1,0 +1,29 @@
+x,y,z,i,det1,det2,a= [],[],[],[],0.0,0.0,1
+
+for f in range(3):
+    f = 0
+    x.append(float(raw_input("termino %d de la %d ecuacion:" %(f+1,a))))
+    y.append(float(raw_input("termino %d de la %d ecuacion:" %(f+2,a))))
+    z.append(float(raw_input("termino %d de la %d ecuacion:" %(f+3,a))))
+    i.append(float(raw_input("termino %d de la %d ecuacion:" %(f+4,a))))
+    a = a+1
+
+def resolver(x1,y1,z1):
+    for j in range(3):
+        if (j==0):
+            det1=x1[j]*y1[j+1]*z1[j+2]
+            det2=x1[j+2]*y1[j+1]*z1[j] 
+        if (j==1):
+            det1= det1+ (y1[j-1]*z1[j]*x1[j+1])
+            det2= det2+ (y1[j+1]*z1[j]*x1[j-1])
+        if (j==2):
+            det1= det1+ (y1[j]*z1[j-2]*x1[j-1])
+            det2= det2+ (y1[j-2]*z1[j]*x1[j-1])
+    return det1-det2
+detPrin = resolver(x,y,z)
+resul1 = resolver(i,y,z)/detPrin
+resul2 = resolver(x,i,z)/detPrin
+resul3 = resolver(x,y,i)/detPrin
+print "Resultados"
+print "X1 = %f                 X2 = %f                X3 = %f" %(resul1,resul2,resul3)
+        
