@@ -1,0 +1,43 @@
+m,r,x,d,y,i,j,n,k,h,n = [],[],[],0.0,0.0,0,0,0,0,0,0
+n = int(raw_input("Ingrese el numero de incognitas"))
+
+for z in range(0,n):
+    m.append([0.0]*n)
+
+for i in range(0,n):
+    k=i+1
+    r.append(float(raw_input("Ingrese el elemento %d del vector de soluciones: "%k)))
+    x.insert(i,0.0)
+    for j in range(0,n):
+        h = j+1
+        m[i][j] = float(raw_input("Ingrese el Elemento %d%d de la matriz de coeficientes: " %(k,h)))
+def haciaAdelante():
+    for i in range(0,n):
+        for j in range(i,n):
+            if (i==j):
+                d = m[i][j]
+                for s in range (0,n):
+                    m[i][s]=((m[i][s])/d)
+                r[i]=((r[i])/d)
+            else:
+                d=m[j][i]
+                for s in range (0,n):
+                    m[j][s]=m[j][s]-(d*m[i][s])
+                r[j]=r[j]-(d*r[i])
+def haciaAtras():
+    i=n-1
+    j=n-1
+    while (i>=0):
+        y = r[i]
+        while (j>=i):
+            y=y-x[j]*m[i][j]
+            j -= 1
+        x[i]=y
+        i -= 1
+        j=n-1
+    for i in range(0,n):
+        k=i+1
+        print ""
+        print "El valor de la incognita X%d es %f"%(k,x[i])
+haciaAdelante()
+haciaAtras()
