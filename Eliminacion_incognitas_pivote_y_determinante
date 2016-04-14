@@ -1,0 +1,65 @@
+m,r,x,n,det,factor = [],[],[],0,1.0,0.0
+n = int(raw_input("Ingrese el numero de incognitas"))
+
+for z in range(0,n):
+    m.append([0.0]*n)
+
+for i in range(0,n):
+    k=i+1
+    r.append(float(raw_input("Ingrese el elemento %d del vector de soluciones: "%k)))
+    x.insert(i,0.0)
+    for j in range(0,n):
+        h = j+1
+        m[i][j] = float(raw_input("Ingrese el Elemento %d%d de la matriz de coeficientes: " %(k,h)))
+        
+def pivote():
+    p,k=0,0
+    p=k
+    big = abs(m[k][k])
+    for i in range(k+1,n):
+        dummy = abs(m[i][k])
+        if (dummy>big):
+            big=dummy
+            p=i
+    if (p!=k):
+        for j in range(k,n):
+            dummy=m[p][j]
+            m[p][j]=m[k][j]
+            m[k][j]=dummy
+        dummy=r[p]
+        r[p]=r[k]
+        r[k]=dummy
+        
+def haciaAdelante():
+    for k in range(0,n-1):
+        for i in range(k+1,n):
+            factor = m[i][k]/m[k][k]
+            for j in range (k+1,n):
+                m[i][j]=m[i][j]-factor*m[k][j]
+            r[i]=r[i]-factor*r[k]
+def haciaAtras():
+    x[n-1]=r[n-1]/m[n-1][n-1]
+    i=n-1
+    while (i>=0):
+        y = r[i]
+        for j in range(i+1,n):
+            y=y-x[j]*m[i][j]
+        x[i]=y/m[i][i]
+        i -= 1
+    for i in range(0,n):
+        k=i+1
+        print ""
+        print "El valor de la incognita X%d es %f"%(k,x[i])
+        
+def determinante():
+    det,d=1.0,0
+    det = m[d][d]*m[d+1][d+1]
+    for d in range(2,n):
+        det = det * m[d][d]
+    print ""
+    print "Este es el determinante: %f"%det
+
+pivote()
+haciaAdelante()
+determinante()
+haciaAtras()
