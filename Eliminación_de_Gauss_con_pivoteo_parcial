@@ -1,0 +1,73 @@
+m,b,x,n,det,factor,tol,s,er = [],[],[],0,1.0,0.0,0.0,[],0.0
+n = int(raw_input("Ingrese el numero de incognitas"))
+for z in range(0,n):
+    m.append([0.0]*n)
+
+for i in range(0,n):
+    k=i+1
+    b.append(float(raw_input("Ingrese el elemento %d del vector de soluciones: "%k)))
+    x.insert(i,0.0)
+    s.insert(i,0.0)
+    for j in range(0,n):
+        h = j+1
+        m[i][j] = float(raw_input("Ingrese el Elemento %d%d de la matriz de coeficientes: " %(k,h)))
+        
+def eliminate(m,s,n,b,tol,er):
+    for k in range(0,n):
+        pivot(m,b,s,n,k)
+        if (abs(m[k][k]/s[k])<tol):
+            er=-1
+        for i in range(k+1,n):
+            factor = m[i][k]/m[k][k]
+            for j in range (k+1,n):
+                m[i][j]=m[i][j]-factor*m[k][j]
+            b[i]=b[i]-factor*b[k]
+    
+    if (abs(m[k][k]/s[k])<tol):
+        er=-1
+        
+def pivot(m,b,s,n,k):
+    p,k=0,0
+    p=k
+    big = abs(m[k][k]/s[k])
+    for i in range(k+1,n):
+        dummy = abs(m[i][k]/s[i])
+        if (dummy>big):
+            big=dummy
+            p=i
+    if (p!=k):
+        for j in range(k,n):
+            dummy=m[p][j]
+            m[p][j]=m[k][j]
+            m[k][j]=dummy
+        dummy=b[p]
+        b[p]=b[k]
+        b[k]=dummy
+        dummy=s[p]
+        s[p]=s[k]
+        s[k]=dummy
+    
+def substitute(m,n,b,x):
+    x[n-1]=b[n-1]/m[n-1][n-1]
+    i=n-1
+    while (i>=0):
+        suma = 0
+        for j in range(i+1,n):
+            suma=suma+x[j]*m[i][j]
+        x[i]=(b[i]-suma)/m[i][i]
+        i -= 1
+    for i in range(0,n):
+        k=i+1
+        print ""
+        print "El valor de la incognita X%d es %f"%(k,x[i])
+    
+def gauss(m,b,n,x,tol,er):
+    for i in range(0,n):
+        s[i]=abs(m[i][1])
+        for j in range(1,n):
+            if (abs(m[i][j])>s[i]):
+                s[i]=abs(m[i][j])
+    eliminate(m,s,n,b,tol,er)
+    if (er!=-1):
+        substitute(m,n,b,x)
+gauss(m,b,n,x,tol,er)
