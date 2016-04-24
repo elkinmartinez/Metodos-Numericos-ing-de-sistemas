@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+n,y,t,sumax,sumay,mult,sumCuadrado=7,[],[],0.0,0.0,0.0,0.0
+xi=[1,2,3,4,5,6,7]
+yi=[0.5,2.5,2.0,4.0,3.5,6.0,5.5]
+
+for i in range (n):
+    sumax += xi[i]
+    sumay += yi[i]
+    mult += xi[i]*yi[i]
+    sumCuadrado += xi[i]**2
+a1 = (n*mult-(sumax*sumay))/(n*sumCuadrado-sumax**2)
+xmedia = sumax/n
+ymedia = sumay/n
+a0 = ymedia-a1*xmedia
+for j in range(n+1):
+    y.append(a0+a1*j)
+    t.append(j)
+    
+plt.plot(t,y)
+plt.plot(xi,yi, 'o')
+plt.xlabel('Xi')
+plt.ylabel('Yi')
+plt.axis([0,8,0,7])
+plt.grid()
+plt.show()
