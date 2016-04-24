@@ -1,0 +1,65 @@
+import math
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt2
+
+r,n,y2,y1,sumatoria,sumCuadrado,mult,t=0.0,15,[],[],0.0,0.0,1.0,[]
+med=[10,16.3,23,27.5,31,35.6,39,41.5,42.9,45,46,45.5,46,49,50]
+calb=[8.953,16.405,22.607,27.769,32.065,35.641,38.617,41.095,43.156,44.872,46.301,47.490,48.479,49.303,49.998]
+calc=[11.24,18.57,23.729,27.556,30.509,32.855,34.766,36.351,37.687,38.829,39.816,40.678,41.437,42.11,42.712]
+
+def suma(vector):
+    sumatoria=0.0
+    for i in range(0,n):
+        sumatoria += vector[i]
+    return sumatoria
+def sumCuadrado(vector):
+    sumatoria=0.0
+    for i in range(0,n):
+        sumatoria += (vector[i])**2 
+    return sumatoria
+def multi(vector1,vector2):
+    mult = 1.0
+    for j in range(n):
+        mult += vector1[j]*vector2[j]
+    return mult
+def raices(vector):
+    raiz = math.sqrt(n*sumCuadrado(vector)-(suma(vector))**2)
+    return raiz
+def resolverPrimera():
+    nominador = n*(multi(med,calb))-suma(med)*suma(calb)
+    r = nominador/(raices(med)*raices(calb))
+    return r
+def resolverSegunda():
+    nominador = n*(multi(med,calc))-suma(med)*suma(calc)
+    r = nominador/(raices(med)*raices(calc))
+    return r
+def regresion1():
+    a1 = (n*multi(med,calb)-(suma(med)*suma(calb)))/(n*sumCuadrado(med)-suma(med)**2)
+    a0 = (suma(calb)/n)-a1*(suma(med)/n)
+    for i in range(55):
+        y1.append(a0+a1*i)
+        t.append(i)
+def regresion2():
+    a1 = (n*multi(med,calc)-(suma(med)*suma(calc)))/(n*sumCuadrado(med)-suma(med)**2)
+    a0 = (suma(calc)/n)-a1*(suma(med)/n)
+    for i in range(55):
+        y2.append(a0+a1*i)
+        
+print "coeficiente de correlacion velocidad medida y velocidad calculada b %f"%resolverPrimera()
+print "coeficiente de correlacion velocidad medida y velocidad calculada c %f"%resolverSegunda()
+regresion1()
+regresion2()
+plt.ylabel('Velocidad calculada b')
+plt.xlabel('Velocidad medida')
+plt.plot(med, calb,'ro')
+plt.plot(t,y1)
+plt.axis([0, 60, 0, 60])
+plt.grid(True)
+plt.show()
+plt2.ylabel('Velocidad calculada c')
+plt2.xlabel('Velocidad medida')
+plt2.plot(med, calc,'ro')
+plt2.plot(t,y2)
+plt2.axis([0, 60, 0, 60])
+plt2.grid(True)
+plt2.show()
